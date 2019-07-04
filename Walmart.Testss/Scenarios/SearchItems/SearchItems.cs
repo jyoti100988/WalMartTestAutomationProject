@@ -30,6 +30,7 @@ namespace Walmart.Testss.Scenarios.SearchItemPage
             var searchItemResultsPage= searchItemsPage.SearchItem(searchItem);
 
             ItemPage itemPage= searchItemResultsPage.ClickItem();
+            System.Threading.Thread.Sleep(5000);
             itemPage.addToCart();
             var cartPage = itemPage.CheckoutDialog.ClickCheckout();
             var checkoutPage = cartPage.ClickProceedCheckout();
