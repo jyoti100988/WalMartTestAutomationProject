@@ -70,18 +70,21 @@ namespace Walmart.Framework
                 var sessionConfig = new SessionConfiguration
                 {
                     Timeout = TimeSpan.FromSeconds(double.Parse(ConfigurationManager.AppSettings["Timeout"])),
-                    Browser = Browser.Parse(ConfigurationManager.AppSettings["Browser"])
+                    Browser = Browser.Parse(ConfigurationManager.AppSettings["Browser"]) ,
+                    Driver=typeof(CustomChromeProfileSeleniumWebDriver)  
+                    
                 };
 
                 if (sessionConfig.Browser == Browser.Chrome)
                 {
-                    _session = new BrowserSession(sessionConfig);
+                   _session = new BrowserSession(sessionConfig);
+                    
                 }
 
                 if (sessionConfig.Browser == Browser.Firefox)
                 {
                     _session = new BrowserSession(sessionConfig);
-                }
+                } 
 
                 _sessinConfiguration = sessionConfig;
 
@@ -162,6 +165,26 @@ namespace Walmart.Framework
         {
             Session.Visit(hyperLink);
         }
-    }  
+    }
+
+    public class CustomChromeProfileSeleniumWebDriver : SeleniumWebDriver
+    {
+        public CustomChromeProfileSeleniumWebDriver(Browser browser)
+            : base(CustomProfile(), browser)
+        {
+        }
+
+        private static RemoteWebDriver CustomProfile()
+        {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("test-type");
+            chromeOptions.AddArguments("start-maximized");
+            chromeOptions.AddArguments("--disable-extensions");
+            chromeOptions.AddArguments("no-sandbox");
+            var path = Environment.CurrentDirectory + @"\tools";
+            return new ChromeDriver(path, chromeOptions);
+        }
+    }
+
 
 }
