@@ -182,6 +182,7 @@ namespace Walmart.Framework
             chromeOptions.AddArguments("--disable-extensions");
             chromeOptions.AddArguments("no-sandbox");
             var path = Environment.CurrentDirectory + @"\tools";
+            Debug.Print("PAth:" + path);
             return new ChromeDriver(path, chromeOptions);
         }
     }
