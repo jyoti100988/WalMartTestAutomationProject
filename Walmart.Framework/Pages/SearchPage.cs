@@ -13,7 +13,7 @@ namespace Walmart.Framework.Pages
     {
         public SearchPage(DriverScope browser): base(browser)
         {
-            Location = "/search";
+            Location = "/en";
         }
         public SearchItemsResultPage SearchItem(string itemName)
         {
@@ -22,7 +22,7 @@ namespace Walmart.Framework.Pages
             SearchItemsResultPage page = new SearchItemsResultPage(Browser);
 
             Debug.Print("Clicked on search button");
-            WaitUntil();
+            
 
             return page;
         }

@@ -33,10 +33,10 @@ namespace Walmart.Testss.Addins
 
             //XmlConfigurator.Configure(new FileInfo("Log.config"));
 
-            var exeConfigPath = new Uri(typeof(NUnitListenerAddin).Assembly.Location).LocalPath;
-            Debug.Print(string.Format("Assembly config path: {0}", exeConfigPath));
+            //var exeConfigPath = new Uri(typeof(NUnitListenerAddin).Assembly.Location).LocalPath;
+            //Debug.Print(string.Format("Assembly config path: {0}", exeConfigPath));
 
-            WalmartEnvConfig.GetEnvFromAppConfig(ConfigurationManager.OpenExeConfiguration(exeConfigPath).AppSettings.Settings["Environment"].Value);
+            //WalmartEnvConfig.GetEnvFromAppConfig(ConfigurationManager.OpenExeConfiguration(exeConfigPath).AppSettings.Settings["Environment"].Value);
 
             return true;
         }

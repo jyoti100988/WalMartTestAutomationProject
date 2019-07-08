@@ -25,6 +25,8 @@ namespace Walmart.Framework.Pages.Item
         /// </summary>
         public void addToCart()
         {
+
+            Browser.TryUntil(() => { }, () => Browser.FindButton("Add to cart").Exists(), TimeSpan.FromSeconds(3));
             Browser.ClickButton("Add to cart");
         }
 

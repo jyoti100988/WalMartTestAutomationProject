@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<data>
-    <test name="PlaceOrder">
-     <param name="searchItem">Pencil</param>
-    </test>  
-</data>

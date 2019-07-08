@@ -18,6 +18,7 @@ namespace Walmart.Framework.Pages.SearchResults
 
         public ItemPage ClickItem()
         {
+            WaitUntil();
             var allArticles=Browser.FindAllXPath(".//div[@id='shelf-thumbs']/div[@class='shelf-thumbs pnoDone']/article");
             allArticles.First().Click();
             return new ItemPage (Browser);

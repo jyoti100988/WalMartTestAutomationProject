@@ -27,7 +27,7 @@ namespace Walmart.Framework.Pages
             //WaitAngular();
             Browser.FindId("global-search").Click();
             var page = PageFactory.Create<SearchPage>(Browser);            
-           // page.WaitLoading();
+            page.WaitLoading();
             //page.Location = string.Format(@"/search/{0}", itemName);
             return page;
         }

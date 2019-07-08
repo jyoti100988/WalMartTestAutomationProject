@@ -33,7 +33,7 @@ namespace Walmart.Testss.Addins
                 var arguments = new List<string>();
 
                // var exeConfigPath = new Uri(typeof(TestDataSuite).Assembly.Location).LocalPath;
-                var exeConfigPath = new Uri(@"E:\Walmart Assignment\WalmartSmokeTestSolution\Walmart.Testss\Scenarios\SearchItems\SearchItems.xml").LocalPath;
+                var exeConfigPath = new Uri(@"E:\Wallmart\Walmart.Testss\Scenarios\SearchItems\SearchItems.xml").LocalPath;
 
                 foreach (var param in method.GetParameters())
                 {
