@@ -26,7 +26,7 @@ namespace Walmart.Testss.Scenarios.SearchItemPage
         private static ExtentReports _extent;
         private static ExtentTest _test;
 
-
+        [SetUp]
         public void CreateReportFolders()
         {
             try
