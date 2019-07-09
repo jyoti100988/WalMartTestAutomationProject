@@ -135,7 +135,7 @@ namespace Walmart.Framework
             return loginPage;
         }
 
-
+        [TearDown]
         public static void Close()
         {
 
