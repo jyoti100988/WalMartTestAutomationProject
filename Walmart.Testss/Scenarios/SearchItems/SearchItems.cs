@@ -1,6 +1,11 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 using NUnit.Framework;
-
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using OpenQA.Selenium;
+using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 using Walmart.Framework;
 using Walmart.Framework.Pages;
@@ -17,6 +22,32 @@ namespace Walmart.Testss.Scenarios.SearchItemPage
     [Parallelizable]
     public partial class SearchItemPage
     {
+
+        private static ExtentReports _extent;
+        private static ExtentTest _test;
+
+
+        public void CreateReportFolders()
+        {
+            try
+            {
+                //To create report directory and add HTML report into it
+
+                _extent = new ExtentReports();
+                var dir = AppDomain.CurrentDomain.BaseDirectory.Replace(@"\\bin\\Debug", string.Empty);
+                DirectoryInfo di = Directory.CreateDirectory(dir + "\\Test_Execution_Reports");
+                var htmlReporter = new ExtentHtmlReporter(dir + "\\Test_Execution_Reports" + "\\Automation_Report" + ".html");
+
+                _extent.AddSystemInfo("User Name", "Jyoti");
+                _extent.AttachReporter(htmlReporter);
+
+                _test = _extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+        }
 
         [Regression]
         [NotReady]
@@ -74,6 +105,64 @@ namespace Walmart.Testss.Scenarios.SearchItemPage
             Debug.WriteLine("Closing Application..");
             Application.Close();
 
+        }
+
+        [TearDown]
+        public void CreateReport()
+        {
+
+            try
+            {
+                var status = TestContext.CurrentContext.Result.Outcome.Status;
+                var stacktrace = "" + TestContext.CurrentContext.Result.StackTrace + "";
+                var errorMessage = TestContext.CurrentContext.Result.Message;
+                Status logstatus;
+                switch (status)
+                {
+                    case TestStatus.Failed:
+                        logstatus = Status.Fail;
+                        string screenShotPath = Capture((IWebDriver)Application.Session.Browser, TestContext.CurrentContext.Test.Name);
+                        _test.Log(logstatus, "Test ended with " + logstatus + " – " + errorMessage);
+                        _test.Log(logstatus, "Snapshot below: " + _test.AddScreenCaptureFromPath(screenShotPath));
+                        break;
+                    case TestStatus.Skipped:
+                        logstatus = Status.Skip;
+                        _test.Log(logstatus, "Test ended with " + logstatus);
+                        break;
+                    default:
+                        logstatus = Status.Pass;
+                        _test.Log(logstatus, "Test ended with " + logstatus);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+            _extent.Flush();
+        }
+
+        public static string Capture(IWebDriver driver, string screenShotName)
+        {
+            string localpath = string.Empty;
+            try
+            {
+                screenShotName = screenShotName.Replace("\"", "");
+                System.Threading.Thread.Sleep(4000);
+                ITakesScreenshot ts = (ITakesScreenshot)driver;
+                Screenshot screenshot = ts.GetScreenshot();
+                string pth = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
+                var dir = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug", string.Empty);
+                DirectoryInfo di = Directory.CreateDirectory(dir + "\\Defect_Screenshots\\");
+                string finalpth = pth.Substring(0, pth.LastIndexOf("bin")) + "\\Defect_Screenshots\\" + screenShotName + ".png";
+                localpath = new Uri(finalpth).LocalPath;
+                screenshot.SaveAsFile(localpath);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+            return localpath;
         }
     }
 }

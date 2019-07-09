@@ -41,10 +41,6 @@
       <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ExtentReports, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExtentReports.4.0.3\lib\ExtentReports.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.7.2\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
