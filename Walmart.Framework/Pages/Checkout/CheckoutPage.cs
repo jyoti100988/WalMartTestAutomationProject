@@ -65,8 +65,9 @@ namespace Walmart.Framework.Pages.Checkout
                 {
                     if (ele.Text.Equals(value))
                     {
+                        Browser.TryUntil(() => { },() => ele.FindXPath("").Exists(),TimeSpan.FromSeconds(5));
                         ele.Click();
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(2000);
                         break;
                     }
                 }
